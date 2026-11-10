@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>每日報告標題產生器</title>
+<style>
+:root{--bg1:#fff7d9;--bg2:#ffe8c2;--bg3:#ffd8bd;--card:rgba(255,255,255,.72);--field:rgba(255,250,244,.9);--text:#4a3a3a;--muted:#8f7a78;--line:#f2d9cb;--accent:#f58a2b;--accent2:#fbc94b;--accent-t:#5a2d0c;--ok:#5fa37a;--shadow:0 6px 24px rgba(245,138,43,.15);--sun:rgba(255,208,90,.6);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);font:16px/1.6 -apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+background:radial-gradient(circle at 50% -10%,var(--sun),transparent 55%),linear-gradient(170deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-color:var(--bg1);background-attachment:fixed}
+main{max-width:760px;margin:0 auto;padding:28px 16px 56px}
+h1{font-size:1.5rem;margin:8px 0 4px;letter-spacing:.04em;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sun{vertical-align:-7px;margin-right:4px}
+.sub{color:var(--muted);font-size:.92rem;margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:var(--shadow);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.f{flex:1;min-width:150px}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:5px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--field);color:var(--text);font:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 3px var(--sun)}
+button{font:inherit;cursor:pointer;border-radius:12px;border:1px solid var(--line);background:var(--field);color:var(--text);padding:10px 14px;transition:transform .1s,background .2s}
+button:hover{background:var(--card)}
+button:active{transform:scale(.97)}
+button.primary{background:linear-gradient(135deg,var(--accent2),var(--accent) 90%);border-color:transparent;color:var(--accent-t);font-weight:600;min-width:90px}
+button.primary.done{background:var(--ok);color:#fff}
+.item{padding:14px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0;padding-top:0}
+.tpl{display:flex;gap:8px;margin-bottom:8px}
+.out{display:flex;gap:8px;align-items:center}
+.preview{flex:1;min-width:0;padding:10px 14px;border-radius:12px;background:var(--field);border:1px dashed var(--accent2);word-break:break-all;font-weight:600}
+.del{color:var(--muted);padding:10px 12px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;padding:5px;border-radius:16px;background:var(--field);border:1px solid var(--line)}
+.tab{flex:1;min-width:88px;text-align:center;padding:9px 10px;border:0;background:transparent}
+.tab.on{background:linear-gradient(135deg,var(--accent2),var(--accent));color:var(--accent-t);font-weight:600;box-shadow:0 3px 10px rgba(245,138,43,.3)}
+.cin{margin-bottom:8px}
+.bwrap{margin-top:8px}
+textarea{min-height:96px;resize:vertical}
+.brow{display:flex;gap:8px;margin-top:8px;align-items:center;justify-content:space-between}
+.link{border:0;background:none;color:var(--accent);padding:6px 0;font-size:.88rem}
+.link:hover{background:none;text-decoration:underline}
+.hint{color:var(--muted);font-size:.82rem;margin:10px 0 0}
+code{background:var(--field);padding:1px 6px;border-radius:6px;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <h1><svg class="sun" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd36b"/><stop offset="1" stop-color="#f58a2b"/></linearGradient></defs><path d="M10 28a10 10 0 0 1 20 0z" fill="url(#sg)"/><g stroke="#f9b23a" stroke-width="2.4" stroke-linecap="round"><path d="M20 8v4"/><path d="M8.5 13l2.8 2.8"/><path d="M31.5 13l-2.8 2.8"/><path d="M4 22h4"/><path d="M32 22h4"/></g><path d="M6 31h28" stroke="#f58a2b" stroke-width="2.4" stroke-linecap="round"/></svg> 每日報告標題產生器</h1>
+  <p class="sub">標題格式固定，日期自動更新，按一下就能複製。</p>
+
+  <div class="card">
+    <div class="row">
+      <div class="f"><label for="date">日期（預設今天）</label><input type="date" id="date"></div>
+      <div class="f"><label for="fmt">日期格式（各分類分開記）</label>
+        <select id="fmt">
+          <option value="ymd-slash">2026/11/10</option>
+          <option value="ymd-dot">2026.11.10</option>
+          <option value="roc-dot">115.11.10（民國年）</option>
+          <option value="ymd-dash">2026-11-10</option>
+          <option value="ymd8">20261110</option>
+          <option value="roc">民國 115/11/10</option>
+          <option value="md-cn">11月10日</option>
+          <option value="ymd-cn">2026年11月10日</option>
+          <option value="md-slash">11/10</option>
+        </select>
+      </div>
+      <div class="f"><label for="time">時間（選填）</label><input type="time" id="time"></div>
+    </div>
+    <p class="hint">在標題範本中用 <code>{日期}</code>、<code>{時間}</code>、<code>{內容}</code> 代表會變動的部分；有 <code>{內容}</code> 的標題會多出一欄，可填當天的標題重點。</p>
+  </div>
+
+  <div class="card">
+    <div class="tabs" id="tabs"></div>
+    <div id="list"></div>
+    <button id="add" style="margin-top:12px">＋ 新增一組標題</button>
+  </div>
+</main>
+
+<script>
+const KEY = 'title-tool-v3';
+const CATS = ['晨訊', '會員網', '日盛'];
+const defaults = { active: '晨訊',
+  fmts: { '晨訊': 'roc-dot', '會員網': 'ymd-dot', '日盛': 'ymd-slash' },
+  cats: {
+    '晨訊': [{ t: '【{日期}】〈台　股_每日市場快訊〉_{內容}', c: '' }],
+    '會員網': [{ t: '會員專屬《每日籌碼面面觀》{內容} {日期}', c: '當沖、資券夯股' }],
+    '日盛': [{ t: '台股_行動快訊', c: '' }]
+  } };
+let state = JSON.parse(JSON.stringify(defaults));
+
+try {
+  const raw = localStorage.getItem(KEY);
+  if (raw) {
+    const s = JSON.parse(raw);
+    if (s && s.cats) {
+      state.active = CATS.includes(s.active) ? s.active : state.active;
+      CATS.forEach(c => {
+        if (Array.isArray(s.cats[c])) state.cats[c] = s.cats[c];
+        if (s.fmts && s.fmts[c]) state.fmts[c] = s.fmts[c];
+      });
+    }
+  }
+} catch (e) {}
+
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+
+function todayStr() { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+function fmtDate(v, f) {
+  const [y, m, d] = v.split('-').map(Number);
+  if (!y) return '';
+  switch (f) {
+    case 'ymd-dash': return y + '-' + pad(m) + '-' + pad(d);
+    case 'ymd-dot': return y + '.' + pad(m) + '.' + pad(d);
+    case 'roc-dot': return (y - 1911) + '.' + pad(m) + '.' + pad(d);
+    case 'ymd8': return '' + y + pad(m) + pad(d);
+    case 'roc': return '民國 ' + (y - 1911) + '/' + pad(m) + '/' + pad(d);
+    case 'md-cn': return m + '月' + d + '日';
+    case 'ymd-cn': return y + '年' + m + '月' + d + '日';
+    case 'md-slash': return pad(m) + '/' + pad(d);
+    default: return y + '/' + pad(m) + '/' + pad(d);
+  }
+}
+
+function fill(txt, it) {
+  return txt.replaceAll('{日期}', fmtDate($('date').value, state.fmts[state.active]))
+    .replaceAll('{時間}', $('time').value).replaceAll('{內容}', it.c || '');
+}
+function render(it) { return fill(it.t, it); }
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  } catch (e) { return false; }
+}
+
+function buildTabs() {
+  const tabs = $('tabs'); tabs.innerHTML = '';
+  CATS.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'tab' + (c === state.active ? ' on' : '');
+    b.textContent = c;
+    b.addEventListener('click', () => { state.active = c; save(); buildTabs(); $('fmt').value = state.fmts[c]; build(); });
+    tabs.appendChild(b);
+  });
+}
+
+function build() {
+  const list = $('list'); list.innerHTML = '';
+  const arr = state.cats[state.active];
+  arr.forEach((it, i) => {
+    const item = document.createElement('div'); item.className = 'item';
+    const tpl = document.createElement('div'); tpl.className = 'tpl';
+    const inp = document.createElement('input'); inp.value = it.t; inp.placeholder = '標題範本，例如：【日報】{日期}';
+    const del = document.createElement('button'); del.className = 'del'; del.textContent = '✕'; del.title = '刪除';
+    tpl.append(inp, del);
+    const cin = document.createElement('input'); cin.className = 'cin'; cin.value = it.c || '';
+    cin.placeholder = '今日內容（填入 {內容} 的位置）';
+    const showC = () => { cin.style.display = it.t.includes('{內容}') ? '' : 'none'; };
+    showC();
+    const out = document.createElement('div'); out.className = 'out';
+    const pv = document.createElement('div'); pv.className = 'preview'; pv.textContent = render(it);
+    const btn = document.createElement('button'); btn.className = 'primary'; btn.textContent = '複製';
+    out.append(pv, btn);
+    const bw = document.createElement('div'); bw.className = 'bwrap';
+    const tog = document.createElement('button'); tog.className = 'link';
+    const ta = document.createElement('textarea'); ta.value = it.b || ''; ta.placeholder = '內文（可用 {日期}、{時間}、{內容}）';
+    const bcopy = document.createElement('button'); bcopy.textContent = '複製內文';
+    const brow = document.createElement('div'); brow.className = 'brow'; brow.append(bcopy);
+    const sync = () => { const on = !!it.hb; ta.style.display = on ? '' : 'none'; brow.style.display = on ? '' : 'none'; tog.textContent = on ? '－ 移除內文' : '＋ 加內文'; };
+    const hasBody = state.active === '會員網';
+    if (hasBody && it.hb === undefined) it.hb = true;
+    sync();
+    bw.append(tog, ta, brow);
+    if (hasBody) item.append(tpl, cin, out, bw); else item.append(tpl, cin, out);
+    list.appendChild(item);
+    tog.addEventListener('click', () => { it.hb = !it.hb; save(); sync(); });
+    ta.addEventListener('input', () => { it.b = ta.value; save(); });
+    bcopy.addEventListener('click', async () => {
+      const ok = await copyText(fill(ta.value, it));
+      bcopy.textContent = ok ? '已複製 ✓' : '複製失敗';
+      setTimeout(() => { bcopy.textContent = '複製內文'; }, 1500);
+    });
+
+    inp.addEventListener('input', () => { it.t = inp.value; showC(); pv.textContent = render(it); save(); });
+    cin.addEventListener('input', () => { it.c = cin.value; pv.textContent = render(it); save(); });
+    del.addEventListener('click', () => { arr.splice(i, 1); save(); build(); });
+    btn.addEventListener('click', async () => {
+      const ok = await copyText(pv.textContent);
+      btn.textContent = ok ? '已複製 ✓' : '複製失敗';
+      if (ok) btn.classList.add('done');
+      setTimeout(() => { btn.textContent = '複製'; btn.classList.remove('done'); }, 1500);
+    });
+  });
+}
+
+function nowTime() { const d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+
+$('date').value = todayStr();
+$('time').value = nowTime();
+$('fmt').value = state.fmts[state.active];
+['date', 'time'].forEach(id => $(id).addEventListener('input', build));
+$('fmt').addEventListener('change', () => { state.fmts[state.active] = $('fmt').value; save(); build(); });
+$('add').addEventListener('click', () => { state.cats[state.active].push({ t: '【' + state.active + '】{日期}', c: '' }); save(); build(); });
+buildTabs();
+build();
+</script>
+</body>
+</html>
