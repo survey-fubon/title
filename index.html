@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>每日報告標題產生器</title>
 <style>
-:root{--bg1:#fff7d9;--bg2:#ffe8c2;--bg3:#ffd8bd;--card:rgba(255,255,255,.72);--field:rgba(255,250,244,.9);--text:#4a3a3a;--muted:#8f7a78;--line:#f2d9cb;--accent:#f58a2b;--accent2:#fbc94b;--accent-t:#5a2d0c;--ok:#5fa37a;--shadow:0 6px 24px rgba(245,138,43,.15);--sun:rgba(255,208,90,.6);
+:root{--bg1:#fff3d6;--bg2:#ffe6c9;--bg3:#ffd9c0;--card:rgba(255,255,255,.72);--field:rgba(255,250,244,.9);--text:#4a3a3a;--muted:#8f7a78;--line:#f2d9cb;--accent:#f58a2b;--accent2:#fbc94b;--accent-t:#5a2d0c;--ok:#5fa37a;--shadow:0 6px 24px rgba(245,138,43,.15);--sun:rgba(255,208,90,.32);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}}
 :root[data-theme="dark"]{--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;color:var(--text);font:16px/1.6 -apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
-background:radial-gradient(circle at 50% -10%,var(--sun),transparent 55%),linear-gradient(170deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-color:var(--bg1);background-attachment:fixed}
-main{max-width:760px;margin:0 auto;padding:28px 16px 56px}
+background:radial-gradient(circle at 50% -10%,var(--sun),transparent 55%),linear-gradient(var(--ang,170deg),var(--bg1),var(--bg2) 55%,var(--bg3));background-color:var(--bg1);background-attachment:fixed}
+main{max-width:760px;margin:0 auto;padding:28px 16px 56px;position:relative;z-index:1}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23f5a54a' stroke-opacity='.25' stroke-width='1.4' stroke-linecap='round'%3E%3Ccircle cx='30' cy='30' r='5'/%3E%3Cpath d='M30 17v4M30 39v4M17 30h4M39 30h4M21 21l3 3M39 21l-3 3M21 39l3-3M39 39l-3-3'/%3E%3C/g%3E%3Cg fill='%23f5a54a' fill-opacity='.2'%3E%3Ccircle cx='90' cy='86' r='2'/%3E%3Ccircle cx='100' cy='34' r='1.4'/%3E%3Ccircle cx='58' cy='96' r='1.4'/%3E%3C/g%3E%3C/svg%3E");background-size:120px 120px}
 h1{font-size:1.5rem;margin:8px 0 4px;letter-spacing:.04em;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sun{vertical-align:-7px;margin-right:4px}
 .sub{color:var(--muted);font-size:.92rem;margin:0 0 20px}
@@ -32,7 +33,16 @@ button.primary.done{background:var(--ok);color:#fff}
 .item:first-child{border-top:0;padding-top:0}
 .tpl{display:flex;gap:8px;margin-bottom:8px}
 .out{display:flex;gap:8px;align-items:center}
-.preview{flex:1;min-width:0;padding:10px 14px;border-radius:12px;background:var(--field);border:1px dashed var(--accent2);word-break:break-all;font-weight:600}
+.preview{flex:1;min-width:0;padding:10px 14px;border-radius:12px;background:var(--pv);border:1px solid var(--pvb);word-break:break-all;font-weight:600}
+:root{--pv:linear-gradient(135deg,#fff0c4,#ffe0b8);--pvb:#f2bd66}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pv:linear-gradient(135deg,#5a4126,#52342a);--pvb:#8a6334}:root:not([data-theme="light"]) body::before{opacity:.45}}
+:root[data-theme="dark"]{--pv:linear-gradient(135deg,#5a4126,#52342a);--pvb:#8a6334}
+:root[data-theme="dark"] body::before{opacity:.45}
+body::before{display:none}
+#deco{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#deco svg{position:absolute}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #deco{opacity:.55}}
+:root[data-theme="dark"] #deco{opacity:.55}
 .del{color:var(--muted);padding:10px 12px}
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;padding:5px;border-radius:16px;background:var(--field);border:1px solid var(--line)}
 .tab{flex:1;min-width:88px;text-align:center;padding:9px 10px;border:0;background:transparent}
@@ -48,6 +58,7 @@ code{background:var(--field);padding:1px 6px;border-radius:6px;color:var(--accen
 </style>
 </head>
 <body>
+<div id="deco" aria-hidden="true"></div>
 <main>
   <h1><svg class="sun" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd36b"/><stop offset="1" stop-color="#f58a2b"/></linearGradient></defs><path d="M10 28a10 10 0 0 1 20 0z" fill="url(#sg)"/><g stroke="#f9b23a" stroke-width="2.4" stroke-linecap="round"><path d="M20 8v4"/><path d="M8.5 13l2.8 2.8"/><path d="M31.5 13l-2.8 2.8"/><path d="M4 22h4"/><path d="M32 22h4"/></g><path d="M6 31h28" stroke="#f58a2b" stroke-width="2.4" stroke-linecap="round"/></svg> 每日報告標題產生器</h1>
   <p class="sub">標題格式固定，日期自動更新，按一下就能複製。</p>
@@ -213,6 +224,37 @@ $('fmt').value = state.fmts[state.active];
 ['date', 'time'].forEach(id => $(id).addEventListener('input', build));
 $('fmt').addEventListener('change', () => { state.fmts[state.active] = $('fmt').value; save(); build(); });
 $('add').addEventListener('click', () => { state.cats[state.active].push({ t: '【' + state.active + '】{日期}', c: '' }); save(); build(); });
+(function(){try{
+  const R=(a,b)=>a+Math.random()*(b-a);
+  const pal=[['#ffffff','#ffffff']];
+  const box=$('deco');
+  document.documentElement.style.setProperty('--ang',Math.round(R(115,245))+'deg');
+  const N=Math.max(10,Math.min(26,Math.round(innerWidth*innerHeight/55000)));
+  for(let i=0;i<N;i++){
+    const size=R(80,240),a=R(0,Math.PI*2),p=pal[Math.floor(Math.random()*pal.length)],id='dg'+i;
+    const x2=50+50*Math.cos(a),y2=50+50*Math.sin(a),x1=100-x2,y1=100-y2;
+    const type=Math.floor(Math.random()*3);
+    let shape;
+    if(type===0){
+      let rays='';
+      for(let k=0;k<12;k++){const t=k*Math.PI/6;rays+=`<path d='M${(50+32*Math.cos(t)).toFixed(1)} ${(50+32*Math.sin(t)).toFixed(1)}L${(50+44*Math.cos(t)).toFixed(1)} ${(50+44*Math.sin(t)).toFixed(1)}'/>`;}
+      shape=`<circle cx='50' cy='50' r='19' fill='url(#${id})'/><g stroke='url(#${id})' stroke-width='4' stroke-linecap='round' fill='none'>${rays}</g>`;
+    }else if(type===1){
+      shape=`<circle cx='50' cy='50' r='38' fill='none' stroke='url(#${id})' stroke-width='5'/>`;
+    }else{
+      shape=`<circle cx='50' cy='50' r='30' fill='url(#${id})'/>`;
+    }
+    const w=document.createElement('div');
+    w.innerHTML=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='left:${R(-4,96).toFixed(1)}%;top:${R(-4,96).toFixed(1)}%;width:${size|0}px;height:${size|0}px;transform:rotate(${R(0,360)|0}deg);opacity:${R(.55,.9).toFixed(2)}'><defs><linearGradient id='${id}' gradientUnits='userSpaceOnUse' x1='${x1.toFixed(1)}' y1='${y1.toFixed(1)}' x2='${x2.toFixed(1)}' y2='${y2.toFixed(1)}'><stop offset='0' stop-color='#fff' stop-opacity='0.95'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></linearGradient></defs>${shape}</svg>`;
+    box.appendChild(w.firstChild);
+  }
+  const D=Math.max(24,Math.min(60,Math.round(innerWidth*innerHeight/22000)));
+  for(let j=0;j<D;j++){
+    const d=document.createElement('div'),s=R(5,22);
+    d.style.cssText='position:absolute;border-radius:50%;background:linear-gradient('+R(0,360).toFixed(0)+'deg,rgba(255,255,255,.95),rgba(255,255,255,0));left:'+R(0,98).toFixed(1)+'%;top:'+R(0,98).toFixed(1)+'%;width:'+s.toFixed(0)+'px;height:'+s.toFixed(0)+'px;opacity:'+R(.5,.9).toFixed(2);
+    box.appendChild(d);
+  }
+}catch(e){}})();
 buildTabs();
 build();
 </script>
