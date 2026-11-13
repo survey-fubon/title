@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>每日報告標題產生器</title>
 <style>
-:root{--bg1:#fff3d6;--bg2:#ffe6c9;--bg3:#ffd9c0;--card:rgba(255,255,255,.72);--field:rgba(255,250,244,.9);--text:#4a3a3a;--muted:#8f7a78;--line:#f2d9cb;--accent:#f58a2b;--accent2:#fbc94b;--accent-t:#5a2d0c;--ok:#5fa37a;--shadow:0 6px 24px rgba(245,138,43,.15);--sun:rgba(255,208,90,.32);
+:root{--bg1:#eaf4ff;--bg2:#dcebff;--bg3:#d4e0fb;--card:rgba(255,255,255,.72);--field:rgba(250,253,255,.92);--text:#2b3a55;--muted:#6f819e;--line:#cfdcf0;--accent:#2f6fe0;--accent2:#5aaef7;--accent-t:#fff;--ok:#5fa37a;--shadow:0 6px 24px rgba(47,111,224,.15);--sun:rgba(120,180,255,.35);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}}
-:root[data-theme="dark"]{--bg1:#2a2230;--bg2:#3a2a35;--bg3:#4a3238;--card:rgba(52,40,48,.78);--field:rgba(35,27,34,.8);--text:#f6e8de;--muted:#c4a9a2;--line:#5a4249;--accent:#f59a3c;--accent2:#fcd36b;--accent-t:#3a2420;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(240,160,110,.22);color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#121a2b;--bg2:#18233a;--bg3:#1f2b4a;--card:rgba(30,41,66,.78);--field:rgba(18,26,44,.8);--text:#e6eefc;--muted:#9fb2d3;--line:#34456b;--accent:#6aa8ff;--accent2:#9fd0ff;--accent-t:#0e1a33;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(100,150,255,.2);color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#121a2b;--bg2:#18233a;--bg3:#1f2b4a;--card:rgba(30,41,66,.78);--field:rgba(18,26,44,.8);--text:#e6eefc;--muted:#9fb2d3;--line:#34456b;--accent:#6aa8ff;--accent2:#9fd0ff;--accent-t:#0e1a33;--ok:#8fd0a8;--shadow:0 6px 24px rgba(0,0,0,.3);--sun:rgba(100,150,255,.2);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;color:var(--text);font:16px/1.6 -apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
@@ -34,9 +34,9 @@ button.primary.done{background:var(--ok);color:#fff}
 .tpl{display:flex;gap:8px;margin-bottom:8px}
 .out{display:flex;gap:8px;align-items:center}
 .preview{flex:1;min-width:0;padding:10px 14px;border-radius:12px;background:var(--pv);border:1px solid var(--pvb);word-break:break-all;font-weight:600}
-:root{--pv:linear-gradient(135deg,#fff0c4,#ffe0b8);--pvb:#f2bd66}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pv:linear-gradient(135deg,#5a4126,#52342a);--pvb:#8a6334}:root:not([data-theme="light"]) body::before{opacity:.45}}
-:root[data-theme="dark"]{--pv:linear-gradient(135deg,#5a4126,#52342a);--pvb:#8a6334}
+:root{--pv:linear-gradient(135deg,#e3f0ff,#d3e4fb);--pvb:#8fb6ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pv:linear-gradient(135deg,#2a3f68,#27355c);--pvb:#4d6fb0}:root:not([data-theme="light"]) body::before{opacity:.45}}
+:root[data-theme="dark"]{--pv:linear-gradient(135deg,#2a3f68,#27355c);--pvb:#4d6fb0}
 :root[data-theme="dark"] body::before{opacity:.45}
 body::before{display:none}
 #deco{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -46,7 +46,7 @@ body::before{display:none}
 .del{color:var(--muted);padding:10px 12px}
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;padding:5px;border-radius:16px;background:var(--field);border:1px solid var(--line)}
 .tab{flex:1;min-width:88px;text-align:center;padding:9px 10px;border:0;background:transparent}
-.tab.on{background:linear-gradient(135deg,var(--accent2),var(--accent));color:var(--accent-t);font-weight:600;box-shadow:0 3px 10px rgba(245,138,43,.3)}
+.tab.on{background:linear-gradient(135deg,var(--accent2),var(--accent));color:var(--accent-t);font-weight:600;box-shadow:0 3px 10px rgba(47,111,224,.3)}
 .cin{margin-bottom:8px}
 .bwrap{margin-top:8px}
 textarea{min-height:96px;resize:vertical}
@@ -55,13 +55,35 @@ textarea{min-height:96px;resize:vertical}
 .link:hover{background:none;text-decoration:underline}
 .hint{color:var(--muted);font-size:.82rem;margin:10px 0 0}
 code{background:var(--field);padding:1px 6px;border-radius:6px;color:var(--accent)}
+h2{font-size:1.05rem;margin:0 0 10px}
+.srcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.src{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--field)}
+.src h3{margin:0 0 8px;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+.src .st{font-size:.78rem;font-weight:400;color:var(--muted)}
+.src .st.ok{color:var(--ok)}
+.src .mini{display:flex;gap:6px;margin:8px 0}
+.src .mini div{flex:1;min-width:0}
+.src .mini input{padding:7px 8px}
+.res{font-size:.85rem;color:var(--muted);word-break:break-all}
+.res b{color:var(--text)}
+.rb{white-space:pre-wrap}
+details{font-size:.8rem;margin-top:6px;color:var(--muted)}
+details pre{white-space:pre-wrap;max-height:200px;overflow:auto;margin:4px 0;font:inherit;color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chip{padding:3px 10px;font-size:.8rem;border-radius:999px}
 </style>
 </head>
 <body>
 <div id="deco" aria-hidden="true"></div>
 <main>
-  <h1><svg class="sun" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd36b"/><stop offset="1" stop-color="#f58a2b"/></linearGradient></defs><path d="M10 28a10 10 0 0 1 20 0z" fill="url(#sg)"/><g stroke="#f9b23a" stroke-width="2.4" stroke-linecap="round"><path d="M20 8v4"/><path d="M8.5 13l2.8 2.8"/><path d="M31.5 13l-2.8 2.8"/><path d="M4 22h4"/><path d="M32 22h4"/></g><path d="M6 31h28" stroke="#f58a2b" stroke-width="2.4" stroke-linecap="round"/></svg> 每日報告標題產生器</h1>
+  <h1><svg class="sun" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ec5ff"/><stop offset="1" stop-color="#2f6fe0"/></linearGradient></defs><path d="M10 28a10 10 0 0 1 20 0z" fill="url(#sg)"/><g stroke="#5aaef7" stroke-width="2.4" stroke-linecap="round"><path d="M20 8v4"/><path d="M8.5 13l2.8 2.8"/><path d="M31.5 13l-2.8 2.8"/><path d="M4 22h4"/><path d="M32 22h4"/></g><path d="M6 31h28" stroke="#2f6fe0" stroke-width="2.4" stroke-linecap="round"/></svg> 每日報告標題產生器</h1>
   <p class="sub">標題格式固定，日期自動更新，按一下就能複製。</p>
+
+  <div class="card">
+    <h2>① 上傳今日 PDF</h2>
+    <p class="hint" style="margin:0 0 12px">PDF 只在你的瀏覽器內讀取，不會上傳到任何地方。版面固定的話，行號設定一次就會被記住。</p>
+    <div class="srcgrid" id="src"></div>
+  </div>
 
   <div class="card">
     <div class="row">
@@ -85,12 +107,16 @@ code{background:var(--field);padding:1px 6px;border-radius:6px;color:var(--accen
   </div>
 
   <div class="card">
+    <h2>② 各網站標題與內文</h2>
+    <p class="hint" style="margin:0 0 8px">點一下變數，會插入到目前編輯的標題或內文欄位；PDF 還沒上傳時，變數會原樣顯示。</p>
+    <div class="chips" id="chips"></div>
     <div class="tabs" id="tabs"></div>
     <div id="list"></div>
     <button id="add" style="margin-top:12px">＋ 新增一組標題</button>
   </div>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const KEY = 'title-tool-v3';
 const CATS = ['晨訊', '會員網', '日盛'];
@@ -142,7 +168,8 @@ function fmtDate(v, f) {
 
 function fill(txt, it) {
   return txt.replaceAll('{日期}', fmtDate($('date').value, state.fmts[state.active]))
-    .replaceAll('{時間}', $('time').value).replaceAll('{內容}', it.c || '');
+    .replaceAll('{時間}', $('time').value).replaceAll('{內容}', it.c || '')
+    .replace(/\{(台股|美股|港股|主動型|會員專屬)(標題|內文)\}/g, (m, a, b) => (EX[a] && EX[a][b === '標題' ? 't' : 'b']) || m);
 }
 function render(it) { return fill(it.t, it); }
 
@@ -175,7 +202,9 @@ function build() {
     const tpl = document.createElement('div'); tpl.className = 'tpl';
     const inp = document.createElement('input'); inp.value = it.t; inp.placeholder = '標題範本，例如：【日報】{日期}';
     const del = document.createElement('button'); del.className = 'del'; del.textContent = '✕'; del.title = '刪除';
-    tpl.append(inp, del);
+    const dup = document.createElement('button'); dup.className = 'del'; dup.textContent = '⧉'; dup.title = '複製這組';
+    dup.addEventListener('click', () => { arr.splice(i + 1, 0, JSON.parse(JSON.stringify(it))); save(); build(); });
+    tpl.append(inp, dup, del);
     const cin = document.createElement('input'); cin.className = 'cin'; cin.value = it.c || '';
     cin.placeholder = '今日內容（填入 {內容} 的位置）';
     const showC = () => { cin.style.display = it.t.includes('{內容}') ? '' : 'none'; };
@@ -190,8 +219,8 @@ function build() {
     const bcopy = document.createElement('button'); bcopy.textContent = '複製內文';
     const brow = document.createElement('div'); brow.className = 'brow'; brow.append(bcopy);
     const sync = () => { const on = !!it.hb; ta.style.display = on ? '' : 'none'; brow.style.display = on ? '' : 'none'; tog.textContent = on ? '－ 移除內文' : '＋ 加內文'; };
-    const hasBody = state.active === '會員網';
-    if (hasBody && it.hb === undefined) it.hb = true;
+    const hasBody = true;
+    if (state.active === '會員網' && it.hb === undefined) it.hb = true;
     sync();
     bw.append(tog, ta, brow);
     if (hasBody) item.append(tpl, cin, out, bw); else item.append(tpl, cin, out);
@@ -255,6 +284,93 @@ $('add').addEventListener('click', () => { state.cats[state.active].push({ t: '�
     box.appendChild(d);
   }
 }catch(e){}})();
+const SRC = ['台股', '美股', '港股', '主動型', '會員專屬'];
+const EX = {}, PG = {}, REF = {};
+let RULES = {};
+try { RULES = JSON.parse(localStorage.getItem('title-tool-rules') || '{}') || {}; } catch (e) {}
+SRC.forEach(n => { RULES[n] = Object.assign({ pages: '', title: '1', body: '' }, RULES[n] || {}); });
+const saveRules = () => { try { localStorage.setItem('title-tool-rules', JSON.stringify(RULES)); } catch (e) {} };
+if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+function parseSpec(sp) {
+  return String(sp).split(/[,，+＋、]/).map(x => x.trim()).filter(Boolean).map(x => {
+    const m = x.match(/^(\d+)\s*[-~－～]\s*(\d+)$/);
+    if (m) { const a = +m[1], b = +m[2], r = []; for (let k = Math.min(a, b); k <= Math.max(a, b); k++) r.push(k); return r; }
+    return /^\d+$/.test(x) ? [+x] : [];
+  }).filter(g => g.length);
+}
+
+async function readPdf(file) {
+  const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+  const pages = [];
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const tc = await (await pdf.getPage(p)).getTextContent();
+    const rows = [];
+    tc.items.forEach(it => {
+      const y = it.transform[5], x = it.transform[4];
+      let r = rows.find(r => Math.abs(r.y - y) < 3);
+      if (!r) { r = { y, items: [] }; rows.push(r); }
+      r.items.push({ x, s: it.str });
+    });
+    rows.sort((a, b) => b.y - a.y);
+    pages.push(rows.map(r => r.items.sort((a, b) => a.x - b.x).map(i => i.s).join('').trim()).filter(Boolean));
+  }
+  return pages;
+}
+
+function flat(n) {
+  const pg = PG[n] || [], sel = RULES[n].pages.trim();
+  let idx = pg.map((_, i) => i + 1);
+  if (sel) idx = [].concat(...parseSpec(sel)).filter(k => k >= 1 && k <= pg.length);
+  return [].concat(...idx.map(k => pg[k - 1]));
+}
+
+function compute(n) {
+  if (!PG[n]) { delete EX[n]; return; }
+  const L = flat(n), rule = RULES[n], tk = parseInt(rule.title, 10);
+  EX[n] = { L, t: tk > 0 ? (L[tk - 1] || '') : '', b: parseSpec(rule.body).map(g => g.map(k => L[k - 1] || '').join('')).filter(Boolean).join('\n') };
+}
+
+function upd(n) {
+  const r = REF[n], e = EX[n];
+  if (!e) return;
+  r.st.textContent = '✓ ' + PG[n].length + ' 頁，' + e.L.length + ' 行'; r.st.classList.add('ok');
+  r.rt.textContent = e.t || '（未設定）'; r.rb.textContent = e.b || '（未設定）';
+  r.rl.textContent = e.L.map((x, i) => (i + 1) + '. ' + x).join('\n');
+}
+
+SRC.forEach(n => {
+  const c = document.createElement('div'); c.className = 'src';
+  c.innerHTML = `<h3><span>${n}</span><span class='st'>尚未上傳</span></h3><input type='file' accept='application/pdf,.pdf'><div class='mini'><div><label>頁碼</label><input data-k='pages' placeholder='全部'></div><div><label>標題行</label><input data-k='title'></div><div><label>內文行</label><input data-k='body' placeholder='1-3,7-9'></div></div><div class='res'>標題：<b class='rt'>—</b><br>內文：<span class='rb'>—</span></div><details><summary>顯示全部行號</summary><pre class='rl'></pre></details>`;
+  REF[n] = { st: c.querySelector('.st'), rt: c.querySelector('.rt'), rb: c.querySelector('.rb'), rl: c.querySelector('.rl') };
+  c.querySelectorAll('[data-k]').forEach(i => {
+    i.value = RULES[n][i.dataset.k];
+    i.addEventListener('input', () => { RULES[n][i.dataset.k] = i.value; saveRules(); compute(n); upd(n); build(); });
+  });
+  c.querySelector('input[type=file]').addEventListener('change', async ev => {
+    const f = ev.target.files[0]; if (!f) return;
+    REF[n].st.classList.remove('ok'); REF[n].st.textContent = '讀取中…';
+    try { PG[n] = await readPdf(f); compute(n); upd(n); build(); }
+    catch (err) { REF[n].st.textContent = '讀取失敗'; console.error(err); }
+  });
+  $('src').appendChild(c);
+});
+
+let LF = null;
+document.addEventListener('focusin', e => { if (e.target.matches('.item input, .item textarea')) LF = e.target; });
+SRC.forEach(n => ['標題', '內文'].forEach(k => {
+  const b = document.createElement('button'); b.className = 'chip'; b.textContent = '{' + n + k + '}';
+  b.addEventListener('mousedown', e => e.preventDefault());
+  b.addEventListener('click', () => {
+    if (!LF || !document.contains(LF)) return;
+    const v = LF.value, s0 = LF.selectionStart ?? v.length, e0 = LF.selectionEnd ?? s0;
+    LF.value = v.slice(0, s0) + b.textContent + v.slice(e0);
+    LF.setSelectionRange(s0 + b.textContent.length, s0 + b.textContent.length);
+    LF.dispatchEvent(new Event('input')); LF.focus();
+  });
+  $('chips').appendChild(b);
+}));
+
 buildTabs();
 build();
 </script>
